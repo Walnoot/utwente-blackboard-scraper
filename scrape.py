@@ -15,12 +15,12 @@ accepted_suffixes = ["pdf", "ppt", "pptx", "doc", "docx"]
 def download_file(element, path):
 	# replace / with - to have a somewhat safe path
 	safe_path = [f.replace("/", "-") for f in path]
-	path_str = "output/" + "/".join(path[:-1])
+	path_str = "output/" + "/".join(safe_path[:-1])
 
 	# Create dirs if not already present
 	Path(path_str).mkdir(parents=True, exist_ok=True)
 
-	file_path = path_str + "/" + path[-1]
+	file_path = path_str + "/" + safe_path[-1]
 	subprocess.run(["wget", "--load-cookies", "cookie.txt", "-O", file_path, element.get_attribute("href")])
 
 	print(path_str)
